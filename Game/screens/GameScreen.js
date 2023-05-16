@@ -1,4 +1,10 @@
-import { View, StyleSheet, Alert, Text, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Alert,
+  FlatList,
+  useWindowDimensions,
+} from "react-native";
 import Title from "../components/ui/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
@@ -26,6 +32,8 @@ function GameScreen({ userNumber, gameIsOver }) {
   const initial = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initial);
   const [rounds, setRounds] = useState([initial]);
+
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -60,10 +68,8 @@ function GameScreen({ userNumber, gameIsOver }) {
   }
 
   const length = rounds.length;
-
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess!</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <InstructionText style={styles.text}>Higher or lower?</InstructionText>
@@ -80,6 +86,31 @@ function GameScreen({ userNumber, gameIsOver }) {
           </View>
         </View>
       </Card>
+    </>
+  );
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.btnContainerWide}>
+          <View style={styles.btn}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+              {<Ionicons name="md-remove" size={24} color="white" />}
+            </PrimaryButton>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.btn}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "creater")}>
+              {<Ionicons name="md-add" size={24} color="white" />}
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's Guess!</Title>
+      {content}
       <View style={styles.listContainer}>
         {/*{rounds.map((round) => (
           <Text key={round}>{round}</Text>
@@ -104,12 +135,18 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    marginTop:20,
+    alignItems: "center",
   },
   text: {
     marginBottom: 12,
   },
   btnContainer: {
     flexDirection: "row",
+  },
+  btnContainerWide: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   btn: {
     flex: 1,
