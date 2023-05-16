@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
-
+import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
@@ -28,7 +28,7 @@ export default function App() {
 
   function gameOverHandler(number) {
     setOver(true);
-    setRounds(number)
+    setRounds(number);
   }
   function startNewGame() {
     setUserNumber(null);
@@ -52,19 +52,22 @@ export default function App() {
   }
 
   return (
-    <LinearGradient
-      colors={[Colors.primary800, Colors.yellow]}
-      style={styles.screen}
-    >
-      <ImageBackground
-        source={require("./assets/images/background.png")}
-        resizeMode="cover"
+    <>
+      <StatusBar style="light" />
+      <LinearGradient
+        colors={[Colors.primary800, Colors.yellow]}
         style={styles.screen}
-        imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView style={styles.screen}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+          source={require("./assets/images/background.png")}
+          resizeMode="cover"
+          style={styles.screen}
+          imageStyle={styles.backgroundImage}
+        >
+          <SafeAreaView style={styles.screen}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
