@@ -12,7 +12,8 @@ function MealDetailsScreen({ route }) {
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
       <Text style={styles.title}>{selectedMeal.title} </Text>
 
-      <MealDetails style={styles.info}
+      <MealDetails
+        style={[styles.info]}
         duration={selectedMeal.duration}
         affordability={selectedMeal.affordability}
         complexity={selectedMeal.complexity}
@@ -43,10 +44,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 350,
   },
-  info:{
-    color:"white"
-  },
 
+  info: {
+    color: "white",
+  },
   title: {
     fontWeight: "bold",
     fontSize: 24,
