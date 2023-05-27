@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View } from "react-native/types";
+import { Text, StyleSheet, View } from "react-native";
 
 function List({ data }) {
   return data.map((ingredient) => (
