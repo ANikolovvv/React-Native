@@ -27,7 +27,6 @@ function MealDetailsScreen({ route, navigation }) {
     <ScrollView style={styles.root}>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
       <Text style={styles.title}>{selectedMeal.title} </Text>
-
       <MealDetails
         style={[styles.info]}
         duration={selectedMeal.duration}
