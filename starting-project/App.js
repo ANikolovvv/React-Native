@@ -43,7 +43,7 @@ function DrawerNavigation() {
         options={{
           title: "My favorites",
           drawerIcon: (color, size) => (
-            <Ionicons name="star" color={color} size={size} />
+            <Ionicons name="star" color={"white"} size={size} />
           ),
         }}
       />
