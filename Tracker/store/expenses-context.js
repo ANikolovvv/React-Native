@@ -66,6 +66,7 @@ function ExpensesContextProvider({ children }) {
 
   function addExpense(expenseData) {
     dispatch({ type: "ADD", payload: expenseData });
+  
   }
   function deleteExpense(id) {
     dispatch({ type: "DELETE", payload: id });
