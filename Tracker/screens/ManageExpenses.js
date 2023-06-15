@@ -6,6 +6,7 @@ import { GlobalStyles } from "../constans/style";
 
 import Button from "../components/UI/Button";
 import { ExpensesContext } from "../store/expenses-context";
+import ExpenseForm from "../components/Manage/ExpenseForm";
 
 function ManageExpenses({ route, navigation }) {
   const ctx = useContext(ExpensesContext);
@@ -35,10 +36,11 @@ function ManageExpenses({ route, navigation }) {
         amount: 19,
       });
     } else {
+      console.log("add");
       ctx.addExpense({
         description: "test",
-        date: new Date("2022-05-5"),
         amount: 19,
+        date: new Date("2022-05-5"),
       });
     }
     navigation.goBack();
@@ -46,6 +48,7 @@ function ManageExpenses({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.buutons}>
         <Button style={styles.button} mode={"flat"} onPress={cancelHandler}>
           Cancel
