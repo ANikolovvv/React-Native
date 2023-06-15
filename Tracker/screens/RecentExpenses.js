@@ -11,8 +11,9 @@ function RecentExpenses() {
     const today = new Date();
     const sevenDays = getDateMinusDate(today, 7);
 
-    return expense.date >= sevenDays && expense.date <= today;
+    return (expense.date > sevenDays) && (expense.date <= today);
   });
+
   return (
     <ExpensesOutput
       expenses={recent}
