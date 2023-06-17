@@ -4,7 +4,6 @@ import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constans/style";
 
-import Button from "../components/UI/Button";
 import { ExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/Manage/ExpenseForm";
 
@@ -12,6 +11,8 @@ function ManageExpenses({ route, navigation }) {
   const ctx = useContext(ExpensesContext);
   const expenseId = route.params?.expenseId;
   const isEditing = !!expenseId;
+
+  const selectedExpense = ctx.expenses.find((x) => x.id === expenseId);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,35 +29,25 @@ function ManageExpenses({ route, navigation }) {
     navigation.goBack();
   }
 
-  function confirmHandler() {
+  function confirmHandler(expenseData) {
     if (isEditing) {
-      ctx.updateExpense(expenseId, {
-        description: "test",
-        date: new Date("2022-05-5"),
-        amount: 19,
-      });
+      ctx.updateExpense(expenseId, expenseData);
     } else {
       console.log("add");
-      ctx.addExpense({
-        description: "test",
-        amount: 19,
-        date: new Date("2022-05-5"),
-      });
+      ctx.addExpense(expenseData);
     }
     navigation.goBack();
   }
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
-      <View style={styles.buutons}>
-        <Button style={styles.button} mode={"flat"} onPress={cancelHandler}>
-          Cancel
-        </Button>
-        <Button style={styles.button} onPress={confirmHandler}>
-          {isEditing ? "Update" : "Add"}
-        </Button>
-      </View>
+      <ExpenseForm
+        onCancel={cancelHandler}
+        onSubmit={confirmHandler}
+        submitLabel={isEditing}
+        defaultValues={selectedExpense}
+      />
+
       {isEditing && (
         <View style={styles.deleteBox}>
           <IconButton
@@ -78,15 +69,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: GlobalStyles.colors.primary800,
   },
-  buutons: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
-  },
+
   deleteBox: {
     marginTop: 16,
     paddingTop: 8,
