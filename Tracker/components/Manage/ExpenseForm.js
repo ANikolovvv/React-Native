@@ -29,16 +29,16 @@ function ExpenseForm({ onCancel, onSubmit, submitLabel, defaultValues }) {
 
   function submitHandler() {
     const expenseData = {
-      amount: Number(inputValue.amount.value),
+      amount:+inputValue.amount.value,
       date: new Date(inputValue.date.value),
       description: inputValue.description.value,
     };
 
-    const amountIsValid = isNaN(expenseData.amount) && expenseData.amount > 0;
+    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
     const dateIsValid = expenseData.date.toString() !== "Invalid Date";
     const descriptionIsValid = expenseData.description.trim().length > 0;
 
-    if (!amountIsValid || dateIsValid || descriptionIsValid) {
+    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
       //Alert.alert("Invalid input");
       setValue((state) => {
         return {
